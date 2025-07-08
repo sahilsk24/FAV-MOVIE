@@ -1,0 +1,79 @@
+
+
+<app-header></app-header>
+<div class="main-content">
+    <app-home-side></app-home-side>
+
+    <div class="banner">
+        <div class="search">
+            <input type="text" [(ngModel)]="searchQuery" placeholder="Search movies...">
+            <button type="submit" (click)="searchMovies()">Search</button>
+        </div>
+
+        <!-- Search Results -->
+        <div class="search-results" *ngIf="searchResults.length > 0">
+            <h3>Search Results</h3>
+            <div class="results-grid">
+                <div *ngFor="let movie of searchResults" class="movie-card" (click)="showDetails(movie)">
+                    <img [src]="movie.imgUrl" [alt]="movie.name">
+                    <div class="movie-info">
+                        <span class="movie-title">{{movie.name}}</span>
+                        <div class="movie-meta">
+                            <span class="year">{{movie.year}}</span>
+                            <span class="rating">⭐ {{movie.rating}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3D Slider -->
+      <!-- ...existing code... -->
+
+<!-- 3D Slider -->
+        <!-- 3D Slider -->
+<div class="slider" style="--quantity: 10">
+    <div class="item" style="--position: 1"><img src="assets/images/Aravindha Sametha Veera Raghava.jpg" alt="Aravindha Sametha"></div>
+    <div class="item" style="--position: 2"><img src="assets/images/Bahubali1.jpg" alt="Bahubali 1"></div>
+    <div class="item" style="--position: 3"><img src="assets/images/Gopala Gopala.jpg" alt="Gopala Gopala"></div>
+    <div class="item" style="--position: 4"><img src="assets/images/OK Kanmani.jpg" alt="OK Kanmani"></div>
+    <div class="item" style="--position: 5"><img src="assets/images/Dabangg 3.jpg" alt="Dabangg 3"></div>
+    <div class="item" style="--position: 6"><img src="assets/images/Spyder.jpg" alt="Spyder"></div>
+    <div class="item" style="--position: 7"><img src="assets/images/Kabali.jpg" alt="Kabali"></div>
+    <div class="item" style="--position: 8"><img src="assets/images/Sye Raa Narasimha Reddy.jpg" alt="Sye Raa"></div>
+    <div class="item" style="--position: 9"><img src="assets/images/Mahanati.jpg" alt="Mahanati"></div>
+    <div class="item" style="--position: 10"><img src="assets/images/Ki & Ka.jpg" alt="Ki & Ka"></div>
+</div>
+
+<!-- ...existing code... -->
+        
+        <div class="home-main">
+            <h4>FAV-MOVE</h4>
+            <div class="fav-mov">
+                <img src="assets/img1/movie_poster.jpg" alt="Movie poster" (click)="router.navigate(['movies'])">
+                <img src="assets/img1/songs poster.png" alt="Song poster" (click)="router.navigate(['songs'])">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Movie Details Modal -->
+<div *ngIf="showMovieDetails && selectedMovie" class="overlay" (click)="closeDetails()"></div>
+<div *ngIf="showMovieDetails && selectedMovie" class="movie-details">
+    <h2>{{selectedMovie.name}}</h2>
+    <div class="movie-detail-content">
+        <img [src]="selectedMovie.imgUrl" [alt]="selectedMovie.name" class="detail-img">
+        <div class="detail-info">
+            <p><strong>Year:</strong> {{selectedMovie.year}}</p>
+            <p><strong>Certificate:</strong> {{selectedMovie.certificate}}</p>
+            <p><strong>Genre:</strong> {{selectedMovie.genre}}</p>
+            <p><strong>Language:</strong> {{selectedMovie.language}}</p>
+            <p><strong>Runtime:</strong> {{selectedMovie.runtime}} min</p>
+            <p><strong>Rating:</strong> ⭐ {{selectedMovie.rating}} ({{selectedMovie.numberOfRatings}} ratings)</p>
+            <p class="description"><strong>Description:</strong> {{selectedMovie.description}}</p>
+        </div>
+    </div>
+    <button class="close-btn" (click)="closeDetails()">Close</button>
+</div>
+
+<app-home-downside></app-home-downside>

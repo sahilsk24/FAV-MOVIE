@@ -178,15 +178,23 @@ export class MovieTrailersComponent {
     this.searchTerm = '';
   }
 
+
   getStarRating(rating: number): string {
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 !== 0;
-    const emptyStars = 5 - Math.ceil(rating);
-    
-    return '⭐'.repeat(fullStars) + 
-           (hasHalfStar ? '⭐' : '') + 
-           '☆'.repeat(emptyStars);
-  }
+
+  const roundedRating = Math.round(rating * 2) / 2;
+  
+  const fullStars = Math.floor(roundedRating);
+  const hasHalfStar = roundedRating % 1 !== 0;
+  const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+
+  const halfStarCharacter = '⯪'; 
+
+  return '★'.repeat(fullStars) + 
+         (hasHalfStar ? halfStarCharacter : '') + 
+         '☆'.repeat(emptyStars);
+}
+
   onImageError(event: Event) {
   (event.target as HTMLImageElement).src = 'assets/default-poster.jpg';
 }

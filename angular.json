@@ -25,7 +25,13 @@
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "assets"
-              }
+                
+              },
+              {
+              "glob": "_redirects",
+              "input": "src",
+              "output": "."
+               }
             ],
             "styles": [
               "src/styles.css"
@@ -88,10 +94,16 @@
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "assets"
+              },
+               {
+                 "glob": "_redirects",
+                 "input": "src",
+                 "output": "."
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+                "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
             "scripts": []
           }

@@ -185,3 +185,95 @@ h3 {
         opacity: 1;
     }
 }
+
+/* ---- Styles for screens 768px and smaller ---- */
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column; /* This is the key change for the overall layout */
+    }
+
+    .banner {
+        /* Adjust height to account for the header and the new home-side height */
+        min-height: calc(100vh - 360px); 
+    }
+
+    .search {
+        width: calc(100% - 20px);
+        max-width: none;
+    }
+
+    .search input {
+        font-size: 16px;
+        padding: 14px 16px;
+    }
+
+    .slider {
+        width: 150px;
+        height: 100px;
+        top: 100px;
+    }
+
+    .slider .item {
+        transform: rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg)) translateZ(120px);
+    }
+
+    .home-main {
+        bottom: 40px;
+        left: 15px;
+        right: 15px;
+    }
+
+    .home-main h4 {
+        font-size: 14px;
+    }
+
+    .fav-mov img {
+        min-width: 100px;
+        width: 100px;
+        height: 140px;
+    }
+}
+
+/* ---- Further adjustments for screens 480px and smaller ---- */
+@media (max-width: 480px) {
+    .banner {
+        min-height: calc(100vh - 310px);
+    }
+
+    .search input {
+        padding: 12px 14px;
+        font-size: 14px;
+    }
+
+    .search button {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+    .slider {
+        width: 120px;
+        height: 80px;
+        top: 80px;
+    }
+
+    .slider .item {
+        transform: rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg)) translateZ(100px);
+    }
+
+    .home-main {
+        bottom: 20px;
+        left: 10px;
+        right: 10px;
+    }
+
+    .fav-mov img {
+        min-width: 80px;
+        width: 80px;
+        height: 120px;
+    }
+}
+@media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none !important;
+  }
+}

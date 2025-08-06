@@ -1,111 +1,200 @@
+
+
 <app-header></app-header>
 <div class="home-container">
-    <div class="all-movies">
-
-
-
-        <div class="trending-movies">
-            <div class="top">
-                <h4>Trending Movies</h4>
-                <div class="view-all" (click)="toggleViewAll('trending')">{{ showAllTrending ? 'Show Less' : 'View All' }}</div>
-            </div>
-            <div class="cover">
-                <div *ngFor="let movie of showAllTrending ? trendingMovies : limitedTrendingMovies" class="movie-card" (click)="showDetails(movie)">
-                    <img [src]="movie.imgUrl" [alt]="movie.name">
-                    <div class="movie-info">
-                        <span class="movie-title">{{movie.name}}</span>
-                        <div class="movie-meta">
-                            <span class="year">{{movie.year}}</span>
-                            <span class="rating">⭐ {{movie.rating}}</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Fallback to static images if no data -->
-                <img *ngIf="trendingMovies.length === 0" src="assets/latest/Daaku Maharaaj.jpg " alt="Daaku Maharaaj">
-                <img *ngIf="trendingMovies.length === 0" src="assets/latest/Sankranthiki Vasthunam.jpg " alt="Sankranthi kiVasthunam">
-                <img *ngIf="trendingMovies.length === 0" src="assets/latest/Game Changer.jpg  " alt="Jalsa">
-                <img *ngIf="trendingMovies.length === 0" src="assets/latest/Thandel.jpg" alt="ki & ka">
-                <img *ngIf="trendingMovies.length === 0" src="assets/images/Awe!.jpg" alt="Mass">
-                <img *ngIf="trendingMovies.length === 0" src="assets/images/Bahubali1.jpg" alt="Sahoo">
-            </div>
+    <!-- Search and Filter Section -->
+    <div class="search-filter-section">
+        <div class="search-container">
+            <input 
+                type="text" 
+                [(ngModel)]="searchTerm" 
+                (input)="onSearch()" 
+                placeholder="Search movies by name, genre, or description..." 
+                class="search-input">
+            <!-- <div class="search-icon">🔍</div> -->
         </div>
-      
-    <div class="latest-movies">
-            <div class="top">
-                <h4>Latest Movies</h4>
-                <div class="view-all" (click)="toggleViewAll('latest')">{{ showAllLatest ? 'Show Less' : 'View All' }}</div>
+        <div class="filter-controls">
+            <div class="filter-group">
+                <label for="genre-filter">Genre:</label>
+                <select id="genre-filter" [(ngModel)]="selectedGenre" (change)="onGenreChange()" class="filter-select">
+                    <option value="">All Genres</option>
+                    <option *ngFor="let genre of availableGenres" [value]="genre">{{genre}}</option>
+                </select>
             </div>
-            <div class="cover">
-                <div *ngFor="let movie of showAllLatest ? latestMovies : limitedLatestMovies" class="movie-card" (click)="showDetails(movie)">
-                    <img [src]="movie.imgUrl" [alt]="movie.name">
-                    <div class="movie-info">
-                        <span class="movie-title">{{movie.name}}</span>
-                        <div class="movie-meta">
-                            <span class="year">{{movie.year}}</span>
-                            <span class="rating">⭐ {{movie.rating}}</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Fallback to static images if no data -->
-                <img *ngIf="latestMovies.length === 0" src=" assets/latest/Chhaava.jpg " alt="Amaran">
-                <img *ngIf="latestMovies.length === 0" src="assets/latest/Robinhood.jpg" alt="Tillu square">
-                <img *ngIf="latestMovies.length === 0" src="assets/latest/Devara Part 1.jpg" alt="Devara">
-                <img *ngIf="latestMovies.length === 0" src="assets/latest/Kalki 2898 AD.jpg" alt="zebra">
-                <img *ngIf="latestMovies.length === 0" src="assets/latest/Lucky baskhar.jpg " alt="Game changer">
-                <img *ngIf="latestMovies.length === 0" src="assets/latest/Pushpa 2 The Rule.jpg" alt="Animal">
+            <div class="filter-group">
+                <label for="year-filter">Year:</label>
+                <select id="year-filter" [(ngModel)]="selectedYear" (change)="onYearChange()" class="filter-select">
+                    <option value="">All Years</option>
+                    <option *ngFor="let year of availableYears" [value]="year">{{year}}</option>
+                </select>
             </div>
-        </div>
-
-        <div class="Recommended-movies">
-            <div class="top">
-                <h4>Recommended Movies</h4>
-                <div class="view-all" (click)="toggleViewAll('recommended')">{{ showAllRecommended ? 'Show Less' : 'View All' }}</div>
+            <div class="filter-group">
+                <label for="sort-by">Sort by:</label>
+                <select id="sort-by" [(ngModel)]="sortBy" (change)="onSortChange()" class="filter-select">
+                    <option value="name">Name</option>
+                    <option value="year">Year</option>
+                    <option value="rating">Rating</option>
+                </select>
             </div>
-            <div class="cover">
-                <div *ngFor="let movie of showAllRecommended ? recommendedMovies : limitedRecommendedMovies" class="movie-card" (click)="showDetails(movie)">
-                    <img [src]="movie.imgUrl" [alt]="movie.name">
-                    <div class="movie-info">
-                        <span class="movie-title">{{movie.name}}</span>
-                        <div class="movie-meta">
-                            <span class="year">{{movie.year}}</span>
-                            <span class="rating">⭐ {{movie.rating}}</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Fallback to static images if no data -->
-                <img *ngIf="recommendedMovies.length === 0" src="assets/images/Agent.jpg" alt="Agent">
-                <img *ngIf="recommendedMovies.length === 0" src="assets/images/Eagle.jpg" alt="Eagle">
-                <img *ngIf="recommendedMovies.length === 0" src="assets/images/Guntur karam.jpg" alt="Guntur karam">
-                <img *ngIf="recommendedMovies.length === 0" src="assets/images/kalki.jpg" alt="Kalki">
-                <img *ngIf="recommendedMovies.length === 0" src="assets/images/lucky baskar.jpg" alt="Lucky baskar">
-                <img *ngIf="recommendedMovies.length === 0" src="assets/images/raja raja chora.jpg" alt="raja raja chora">
+            <button class="clear-filters-btn" (click)="clearFilters()">Clear Filters</button>
+            <div class="view-toggle">
+                <button class="view-mode-btn" [class.active]="viewMode === 'grid'" (click)="viewMode = 'grid'">
+                    ⊞ Grid
+                </button>
+                <button class="view-mode-btn" [class.active]="viewMode === 'list'" (click)="viewMode = 'list'">
+                    ☰ List
+                </button>
             </div>
         </div>
     </div>
-    
-    <div class="popular-movies">
-        <div class="top">
-            <h4>Popular Movies</h4>
-            <div class="view-all" (click)="toggleViewAll('popular')">{{ showAllPopular ? 'Show Less' : 'View All' }}</div>
-        </div>
-        <div class="cover1">
-            <div *ngFor="let movie of showAllPopular ? popularMovies : limitedPopularMovies" class="movie-card" (click)="showDetails(movie)">
-                <img [src]="movie.imgUrl" [alt]="movie.name">
-                <div class="movie-info">
-                    <span class="movie-title">{{movie.name}}</span>
-                    <div class="movie-meta">
-                        <span class="year">{{movie.year}}</span>
-                        <span class="rating">⭐ {{movie.rating}}</span>
+
+    <!-- Search Results Section -->
+    <div *ngIf="hasActiveFilters()" class="search-results-container">
+        <div *ngIf="filteredMovies.length > 0" class="search-results">
+            <h4>{{getResultsTitle()}} ({{filteredMovies.length}})</h4>
+            <div [class]="viewMode === 'grid' ? 'cover' : 'list-view'">
+                <div *ngFor="let movie of filteredMovies" 
+                     [class]="viewMode === 'grid' ? 'movie-card' : 'movie-card-list'" 
+                     (click)="showDetails(movie)">
+                    <img [src]="movie.imgUrl" [alt]="movie.name">
+                    <div class="movie-info">
+                        <span class="movie-title">{{movie.name}}</span>
+                        <div class="movie-meta">
+                            <span class="year">{{movie.year}}</span>
+                            <span class="rating">⭐ {{movie.rating}}</span>
+                        </div>
+                        <div *ngIf="viewMode === 'list'" class="movie-description">
+                            {{movie.description}}
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- Fallback to static images if no data -->
-            <img *ngIf="popularMovies.length === 0" src="assets/images/Bahubali1.jpg" alt="Bahubali 1">
-            <img *ngIf="popularMovies.length === 0" src="assets/images/RRR.jpg" alt="RRR">
-            <img *ngIf="popularMovies.length === 0" src="assets/latest/Pushpa 2 The Rule.jpg" alt="Pushpa 2">
-            <img *ngIf="popularMovies.length === 0" src="assets/images/Manmadhudu.webp" alt="Nani's saripodha sannivaram">
-            <img *ngIf="popularMovies.length === 0" src="assets/images/Arya 2.jpg" alt="Mufasa">
-            <img *ngIf="popularMovies.length === 0" src="assets/images/Mahanati.jpg" alt="Maharaja">
+        </div>
+        
+        <div *ngIf="filteredMovies.length === 0" class="no-results">
+            <p>No movies found with the current filters</p>
+        </div>
+    </div>
+
+    <!-- Main Movie Categories (hidden when searching/filtering) -->
+    <div class="movies-content" [class.hidden]="hasActiveFilters()">
+        <div class="all-movies">
+            <div class="trending-movies">
+                <div class="top">
+                    <h4>Trending Movies</h4>
+                    <div class="view-all" (click)="toggleViewAll('trending')">{{ showAllTrending ? 'Show Less' : 'View All' }}</div>
+                </div>
+                <div class="cover">
+                    <div *ngFor="let movie of showAllTrending ? trendingMovies : limitedTrendingMovies" class="movie-card" (click)="showDetails(movie)">
+                        <img [src]="movie.imgUrl" [alt]="movie.name">
+                        <div class="movie-info">
+                            <span class="movie-title">{{movie.name}}</span>
+                            <div class="movie-meta">
+                                <span class="year">{{movie.year}}</span>
+                                <span class="rating">⭐ {{movie.rating}}</span>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <!-- Fallback images when no movies are loaded -->
+                    <ng-container *ngIf="trendingMovies.length === 0">
+                        <img src="assets/latest/Daaku Maharaaj.jpg" alt="Daaku Maharaaj">
+                        <img src="assets/latest/Sankranthiki Vasthunam.jpg" alt="Sankranthi kiVasthunam">
+                        <img src="assets/latest/Game Changer.jpg" alt="Game Changer">
+                        <img src="assets/latest/Thandel.jpg" alt="Thandel">
+                        <img src="assets/images/Awe!.jpg" alt="Awe!">
+                        <img src="assets/images/Bahubali1.jpg" alt="Bahubali 1">
+                    </ng-container>
+                </div>
+            </div>
+          
+            <div class="latest-movies">
+                <div class="top">
+                    <h4>Latest Movies</h4>
+                    <div class="view-all" (click)="toggleViewAll('latest')">{{ showAllLatest ? 'Show Less' : 'View All' }}</div>
+                </div>
+                <div class="cover">
+                    <div *ngFor="let movie of showAllLatest ? latestMovies : limitedLatestMovies" class="movie-card" (click)="showDetails(movie)">
+                        <img [src]="movie.imgUrl" [alt]="movie.name">
+                        <div class="movie-info">
+                            <span class="movie-title">{{movie.name}}</span>
+                            <div class="movie-meta">
+                                <span class="year">{{movie.year}}</span>
+                                <span class="rating">⭐ {{movie.rating}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Fallback images when no movies are loaded -->
+                    <ng-container *ngIf="latestMovies.length === 0">
+                        <img src="assets/latest/Chhaava.jpg" alt="Chhaava">
+                        <img src="assets/latest/Robinhood.jpg" alt="Robinhood">
+                        <img src="assets/latest/Devara Part 1.jpg" alt="Devara Part 1">
+                        <img src="assets/latest/Kalki 2898 AD.jpg" alt="Kalki 2898 AD">
+                        <img src="assets/latest/Lucky baskhar.jpg" alt="Lucky Baskhar">
+                        <img src="assets/latest/Pushpa 2 The Rule.jpg" alt="Pushpa 2 The Rule">
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="recommended-movies">
+                <div class="top">
+                    <h4>Recommended Movies</h4>
+                    <div class="view-all" (click)="toggleViewAll('recommended')">{{ showAllRecommended ? 'Show Less' : 'View All' }}</div>
+                </div>
+                <div class="cover">
+                    <div *ngFor="let movie of showAllRecommended ? recommendedMovies : limitedRecommendedMovies" class="movie-card" (click)="showDetails(movie)">
+                        <img [src]="movie.imgUrl" [alt]="movie.name">
+                        <div class="movie-info">
+                            <span class="movie-title">{{movie.name}}</span>
+                            <div class="movie-meta">
+                                <span class="year">{{movie.year}}</span>
+                                <span class="rating">⭐ {{movie.rating}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Fallback images when no movies are loaded -->
+                    <ng-container *ngIf="recommendedMovies.length === 0">
+                        <img src="assets/images/Agent.jpg" alt="Agent">
+                        <img src="assets/images/Eagle.jpg" alt="Eagle">
+                        <img src="assets/images/Guntur karam.jpg" alt="Guntur karam">
+                        <img src="assets/images/kalki.jpg" alt="Kalki">
+                        <img src="assets/images/lucky baskar.jpg" alt="Lucky baskar">
+                        <img src="assets/images/raja raja chora.jpg" alt="raja raja chora">
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+        
+        <div class="popular-movies">
+            <div class="top">
+                <h4>Popular Movies</h4>
+                <div class="view-all" (click)="toggleViewAll('popular')">{{ showAllPopular ? 'Show Less' : 'View All' }}</div>
+            </div>
+            <div class="cover1">
+                <div *ngFor="let movie of showAllPopular ? popularMovies : limitedPopularMovies" class="movie-card" (click)="showDetails(movie)">
+                    <img [src]="movie.imgUrl" [alt]="movie.name">
+                    <div class="movie-info">
+                        <span class="movie-title">{{movie.name}}</span>
+                        <div class="movie-meta">
+                            <span class="year">{{movie.year}}</span>
+                            <span class="rating">⭐ {{movie.rating}}</span>
+                        </div>
+                    </div>
+                </div>
+               
+              
+                <ng-container *ngIf="popularMovies.length === 0">
+                    <img src="assets/images/Bahubali1.jpg" alt="Bahubali 1">
+                    <img src="assets/images/RRR.jpg" alt="RRR">
+                    <img src="assets/latest/Pushpa 2 The Rule.jpg" alt="Pushpa 2">
+                    <img src="assets/images/Manmadhudu.webp" alt="Manmadhudu">
+                    <img src="assets/images/Arya 2.jpg" alt="Arya 2">
+                    <img src="assets/images/Mahanati.jpg" alt="Mahanati">
+                </ng-container>
+                
+            </div>
         </div>
     </div>
 </div>
@@ -117,7 +206,6 @@
     <div class="movie-detail-content">
         <img [src]="selectedMovie.imgUrl" [alt]="selectedMovie.name" class="detail-img">
         <div class="detail-info">
-            
             <p><strong>Year:</strong> {{selectedMovie.year}}</p>
             <p><strong>Certificate:</strong> {{selectedMovie.certificate}}</p>
             <p><strong>Genre:</strong> {{selectedMovie.genre}}</p>
@@ -128,7 +216,6 @@
         </div>
     </div>
     <button class="close-btn" (click)="closeDetails()">Close</button>
-
 </div>
 
 <app-home-downside></app-home-downside>

@@ -1,6 +1,6 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
+import { SafePipe } from './safe.pipe';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {

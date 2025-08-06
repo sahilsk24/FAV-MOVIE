@@ -1,10 +1,59 @@
-<div class="header-container">
+<!-- <div class="header-container">
     <div class="logo">FavMovie</div>
     <div class="nav"> 
         <h3 (click)="goToHome()">Home</h3>
         <h3 (click)="goToMovies()">Movies</h3>
         <h3 (click)="goToSongs()">Songs</h3>
-        <h3>Contact us</h3>
+        <h3 (click)="goToTrailer()">MovieTrailer</h3>
     </div>
     <div class="logout" (click)="logout()">Logout</div>
+</div> -->
+
+<div class="header-container">
+    <div class="logo" (click)="goToHomePage()" title="Go to Home">
+        FavMovie
+    </div>
+    
+    <!-- Mobile menu toggle button -->
+    <div class="mobile-menu-toggle" (click)="toggleMenu()" [class.active]="isMenuOpen">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    
+    <!-- Navigation menu -->
+    <nav class="nav" [class.mobile-open]="isMenuOpen">
+        <h3 (click)="goToHome()" 
+            [class.active]="isActive('home')"
+            title="Go to Home">
+            Home
+        </h3>
+        <h3 (click)="goToMovies()" 
+            [class.active]="isActive('movies')"
+            title="Browse Movies">
+            Movies
+        </h3>
+        <h3 (click)="goToSongs()" 
+            [class.disabled]="true"
+            title="Coming Soon">
+            Songs
+        </h3>
+        <h3 (click)="goToTrailer()" 
+            [class.active]="isActive('trailers')"
+            title="Watch Movie Trailers">
+            Trailers
+        </h3>
+    </nav>
+    
+    <!-- Logout button -->
+    <div class="logout" (click)="logout()" title="Logout from your account">
+        <span class="logout-icon">⚡</span>
+        <span class="logout-text"></span>
+    </div>
+    
+    <!-- Mobile menu overlay -->
+    <div class="mobile-overlay" 
+         [class.active]="isMenuOpen" 
+         (click)="closeMenu()">
+    </div>
 </div>

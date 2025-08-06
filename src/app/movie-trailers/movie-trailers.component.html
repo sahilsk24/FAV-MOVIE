@@ -1,0 +1,178 @@
+
+<app-header></app-header>
+
+<div class="container">
+  <!-- Movie List View -->
+  <div *ngIf="!selectedMovie" class="movie-list-view">
+    <div class="header-section">
+      <h2> Movie Trailers Collection</h2>
+      <p class="subtitle">Discover the best Indian cinema trailers</p>
+    </div>
+
+    <!-- Search and Filter Controls -->
+    <!-- <div class="controls-section">
+      <div class="search-bar">
+        <input 
+          type="text" 
+          [(ngModel)]="searchTerm" 
+          placeholder="Search movies or genres..."
+          class="search-input">
+      </div>
+      
+      <div class="sort-controls">
+        <label for="sortBy">Sort by:</label>
+        <select [(ngModel)]="sortBy" id="sortBy" class="sort-select">
+          <option value="rating"> Rating</option>
+          <option value="title"> Title</option>
+          <option value="year"> Year</option>
+        </select>
+      </div>
+    </div> -->
+    <div class="controls-section">
+  <div class="search-container">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      placeholder="Search movies or genres..."
+      class="styled-search-input" />
+    <button type="button" class="search-button">Search</button>
+  </div>
+
+  <div class="sort-controls">
+    <label for="sortBy">Sort by:</label>
+    <select [(ngModel)]="sortBy" id="sortBy" class="styled-sort-select">
+      <option value="rating">Rating</option>
+      <option value="title">Title</option>
+      <option value="year">Year</option>
+    </select>
+  </div>
+</div>
+
+
+    <!-- Movies Grid -->
+    <div class="movies-grid">
+      <div 
+        *ngFor="let movie of filteredAndSortedMovies" 
+        class="movie-card"
+        (click)="selectMovie(movie)">
+        
+        <div class="movie-thumbnail">
+          <img 
+            [src]="'https://img.youtube.com/vi/' + movie.youtubeId + '/maxresdefault.jpg'" 
+            [alt]="movie.title + ' thumbnail'"
+            class="thumbnail-image">
+          <div class="play-overlay">
+            <div class="play-button">▶</div>
+          </div>
+        </div>
+        
+        <div class="movie-info">
+          <h3 class="movie-title">{{ movie.title }}</h3>
+          <div class="movie-meta">
+            <span class="genre">{{ movie.genre }}</span>
+            <span class="year">{{ movie.year }}</span>
+            <span class="duration">{{ movie.duration }}</span>
+          </div>
+          <div class="rating-section">
+            <span class="stars">{{ getStarRating(movie.rating) }}</span>
+            <span class="rating-number">{{ movie.rating }}/5</span>
+          </div>
+          <div class="comments-count">
+            {{ movie.comments.length }} comments
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- No Results -->
+    <div *ngIf="filteredAndSortedMovies.length === 0" class="no-results">
+      <!-- <div class="no-results-icon">🎭</div> -->
+      <h3>No movies found</h3>
+      <p>Try adjusting your search terms</p>
+    </div>
+  </div>
+
+  <!-- Selected Movie Trailer View -->
+  <div *ngIf="selectedMovie" class="trailer-view">
+    <div class="trailer-header">
+      <button (click)="goBack()" class="back-button">
+        ← Back to Movies
+      </button>
+      <div class="movie-details">
+        <h2>{{ selectedMovie.title }}</h2>
+        <div class="movie-meta-detailed">
+          <span class="genre-tag">{{ selectedMovie.genre }}</span>
+          <span class="year-tag">{{ selectedMovie.year }}</span>
+          <span class="duration-tag">{{ selectedMovie.duration }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video Player -->
+    <div class="video-container">
+      <iframe 
+        width="100%" 
+        height="500"
+        [src]="'https://www.youtube.com/embed/' + selectedMovie.youtubeId + '?rel=0&modestbranding=1' | safe"
+        frameborder="0"
+        allowfullscreen
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+      </iframe>
+    </div>
+
+    <!-- Rating Section -->
+    <div class="rating-display">
+      <div class="stars-large">{{ getStarRating(selectedMovie.rating) }}</div>
+      <div class="rating-text">
+        <span class="rating-number-large">{{ selectedMovie.rating }}</span>
+        <span class="rating-label">out of 5 stars</span>
+      </div>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="comments-section">
+      <h3> Comments ({{ selectedMovie.comments.length }})</h3>
+      
+      <!-- Add Comment Form -->
+      <div class="add-comment-form">
+        <textarea 
+          [(ngModel)]="newComment" 
+          placeholder="Share your thoughts about this trailer..."
+          class="comment-textarea"
+          maxlength="500">
+        </textarea>
+        <div class="comment-actions">
+          <span class="character-count">{{ newComment.length }}/500</span>
+          <button 
+            (click)="addComment()" 
+            [disabled]="!newComment.trim()"
+            class="post-button">
+            Post Comment
+          </button>
+        </div>
+      </div>
+
+      <!-- Comments List -->
+      <div class="comments-list">
+        <div 
+          *ngFor="let comment of selectedMovie.comments; let i = index" 
+          class="comment-item">
+          <div class="comment-content">
+            <div class="comment-text">{{ comment }}</div>
+            <button 
+              (click)="deleteComment(i)" 
+              class="delete-comment"
+              title="Delete comment">
+              <!-- 🗑️ -->
+            </button>
+          </div>
+        </div>
+        
+        <div *ngIf="selectedMovie.comments.length === 0" class="no-comments">
+          <!-- <div class="no-comments-icon">💭</div> -->
+          <p>No comments yet. Be the first to share your thoughts!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

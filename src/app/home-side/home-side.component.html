@@ -1,40 +1,65 @@
-<div class="home-side">
+<div class="hide-on-mobile">
+  <!-- Everything inside here will be hidden on mobile -->
+  <div class="home-side">
     <h3>Top picks for you</h3>
-    <div class="view"><h4 (click)="toggleViewAll()">{{showAllTopPicks ? 'Show less' : 'View all'}}</h4></div>
+    <div class="view">
+      <h4 (click)="toggleViewAll()">
+        {{ showAllTopPicks ? 'Show less' : 'View all' }}
+      </h4>
+    </div>
     <div class="Top-pics">
-        <div *ngFor="let movie of showAllTopPicks ? TopPickforyou : limitedTopPickforyou" class="movie-card" (click)="showDetails(movie)">
-            <img [src]="movie.imgUrl" [alt]="movie.name">
-            <div class="movie-info">
-                <span class="movie-title">{{movie.name}}</span>
-                <div class="movie-meta">
-                    <span class="year">{{movie.year}}</span>
-                    <span class="rating">⭐ {{movie.rating}}</span>
-                </div>
-            </div>
+      <div
+        *ngFor="let movie of showAllTopPicks ? TopPickforyou : limitedTopPickforyou"
+        class="movie-card"
+        (click)="showDetails(movie)"
+      >
+        <img [src]="movie.imgUrl" [alt]="movie.name" />
+        <div class="movie-info">
+          <span class="movie-title">{{ movie.name }}</span>
+          <div class="movie-meta">
+            <span class="year">{{ movie.year }}</span>
+            <span class="rating">⭐ {{ movie.rating }}</span>
+          </div>
         </div>
-        <img *ngIf="TopPickforyou.length === 0" src="assets/images/Bahubali1.jpg" alt="Bahubali 1">
-        <img *ngIf="TopPickforyou.length === 0" src="assets/images/RRR.jpg" alt="RRR">
-        <img *ngIf="TopPickforyou.length === 0" src="assets/latest/Pushpa 2 The Rule.jpg" alt="Pushpa 2">
-        <!-- <img src="assets\images\Pushpha.jpg" alt="Pushpa"> -->
+      </div>
+
+      <img
+        *ngIf="TopPickforyou.length === 0"
+        src="assets/images/Bahubali1.jpg"
+        alt="Bahubali 1"
+      />
+      <img
+        *ngIf="TopPickforyou.length === 0"
+        src="assets/images/RRR.jpg"
+        alt="RRR"
+      />
+      <img
+        *ngIf="TopPickforyou.length === 0"
+        src="assets/latest/Pushpa 2 The Rule.jpg"
+        alt="Pushpa 2"
+      />
     </div>
 
     <div *ngIf="showMovieDetails && selectedMovie" class="overlay" (click)="closeDetails()"></div>
-<div *ngIf="showMovieDetails && selectedMovie" class="movie-details">
-    <h2>{{selectedMovie.name}}</h2>
-    <div class="movie-detail-content">
-        <img [src]="selectedMovie.imgUrl" [alt]="selectedMovie.name" class="detail-img">
+    <div *ngIf="showMovieDetails && selectedMovie" class="movie-details">
+      <h2>{{ selectedMovie.name }}</h2>
+      <div class="movie-detail-content">
+        <img
+          [src]="selectedMovie.imgUrl"
+          [alt]="selectedMovie.name"
+          class="detail-img"
+        />
         <div class="detail-info">
-            
-            <p><strong>Year:</strong> {{selectedMovie.year}}</p>
-            <p><strong>Certificate:</strong> {{selectedMovie.certificate}}</p>
-            <p><strong>Genre:</strong> {{selectedMovie.genre}}</p>
-            <p><strong>Language:</strong> {{selectedMovie.language}}</p>
-            <p><strong>Runtime:</strong> {{selectedMovie.runtime}} min</p>
-            <p><strong>Rating:</strong> ⭐ {{selectedMovie.rating}} ({{selectedMovie.numberOfRatings}} ratings)</p>
-            <p class="description"><strong>Description:</strong> {{selectedMovie.description}}</p>
+          <p><strong>Year:</strong> {{ selectedMovie.year }}</p>
+          <p><strong>Certificate:</strong> {{ selectedMovie.certificate }}</p>
+          <p><strong>Genre:</strong> {{ selectedMovie.genre }}</p>
+          <p><strong>Language:</strong> {{ selectedMovie.language }}</p>
+          <p><strong>Runtime:</strong> {{ selectedMovie.runtime }} min</p>
+          <p><strong>Rating:</strong> ⭐ {{ selectedMovie.rating }} ({{ selectedMovie.numberOfRatings }} ratings)</p>
+          <p class="description"><strong>Description:</strong> {{ selectedMovie.description }}</p>
         </div>
+      </div>
+      <button class="close-btn" (click)="closeDetails()">Close</button>
     </div>
-    <button class="close-btn" (click)="closeDetails()">Close</button>
-
-</div>
+  </div>
 </div>

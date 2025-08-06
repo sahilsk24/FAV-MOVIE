@@ -1,8 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-*{
-    margin: 0px;
-    
-    padding: 0px;
-    box-sizing: border-box;
+body {
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Ensure consistent padding across all pages */
+.page-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }

@@ -59,3 +59,4 @@ export class HomeComponent implements OnInit {
     this.selectedMovie = null;
   }
 }
+

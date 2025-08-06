@@ -1,16 +1,22 @@
-
-
 <app-header></app-header>
 <div class="main-content">
     <app-home-side></app-home-side>
 
     <div class="banner">
+        
         <div class="search">
-            <input type="text" [(ngModel)]="searchQuery" placeholder="Search movies...">
-            <button type="submit" (click)="searchMovies()">Search</button>
-        </div>
+  <div class="search-container">
+    <input 
+      type="text" 
+      [(ngModel)]="searchQuery" 
+      placeholder="Search movies by name, genre, or description..."
+      (keyup.enter)="searchMovies()"
+    />
+    <button type="submit" (click)="searchMovies()">Search</button>
+  </div>
+</div>
 
-        <!-- Search Results -->
+       
         <div class="search-results" *ngIf="searchResults.length > 0">
             <h3>Search Results</h3>
             <div class="results-grid">
@@ -27,11 +33,7 @@
             </div>
         </div>
 
-        <!-- 3D Slider -->
-      <!-- ...existing code... -->
-
-<!-- 3D Slider -->
-        <!-- 3D Slider -->
+       
 <div class="slider" style="--quantity: 10">
     <div class="item" style="--position: 1"><img src="assets/images/Aravindha Sametha Veera Raghava.jpg" alt="Aravindha Sametha"></div>
     <div class="item" style="--position: 2"><img src="assets/images/Bahubali1.jpg" alt="Bahubali 1"></div>
@@ -45,19 +47,20 @@
     <div class="item" style="--position: 10"><img src="assets/images/Ki & Ka.jpg" alt="Ki & Ka"></div>
 </div>
 
-<!-- ...existing code... -->
+
         
         <div class="home-main">
             <h4>FAV-MOVE</h4>
             <div class="fav-mov">
                 <img src="assets/img1/movie_poster.jpg" alt="Movie poster" (click)="router.navigate(['movies'])">
                 <img src="assets/img1/songs poster.png" alt="Song poster" (click)="router.navigate(['songs'])">
+                <img src="assets/img1/trailer.png" alt="Trailer poster" (click)="router.navigate(['trailers'])">
             </div>
         </div>
     </div>
 </div>
 
-<!-- Movie Details Modal -->
+
 <div *ngIf="showMovieDetails && selectedMovie" class="overlay" (click)="closeDetails()"></div>
 <div *ngIf="showMovieDetails && selectedMovie" class="movie-details">
     <h2>{{selectedMovie.name}}</h2>
@@ -77,3 +80,5 @@
 </div>
 
 <app-home-downside></app-home-downside>
+
+

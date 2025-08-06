@@ -1,4 +1,5 @@
 
+
 @import url('https://fonts.cdnfonts.com/css/ica-rubrik-black');
 @import url('https://fonts.cdnfonts.com/css/poppins');
 
@@ -18,11 +19,13 @@
 
 .banner {
   width: 100%;
-  height: 115vh;
+  min-height: 100vh;
   text-align: center;
   overflow: hidden;
   position: relative;
   perspective: 1000px;
+  display: flex;
+  flex-direction: column;
 }
 
 .banner .slider {
@@ -137,8 +140,10 @@
 }
 
 .home-main {
-  margin-top: 550px;
-  float: left;
+  margin-top: auto;
+  padding-top: 50px;
+  padding-bottom: 20px;
+  width: 100%;
 }
 
 .home-main h4 {
@@ -360,77 +365,6 @@ h3 {
     text-decoration: underline;
 }
 
-.Top-pics img {
-    width: 75%;
-    height: 225px;
-    border-radius: 7px;
-    border: 1px solid #fbe193; 
-    margin-top: 20px;
-    animation: slideFromTop 0.8s ease-in;
-    transition: transform 0.3s ease;
-}
-
-.Top-pics img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-@keyframes slideFromTop {
-    0% {
-        transform: translateY(-5px); 
-        opacity: 1; 
-    }
-    100% {
-        transform: translateY(0); 
-        opacity: 1; 
-    }
-}
-
-.Top-pics .movie-card {
-    position: relative;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    margin-bottom: 20px;
-}
-
-.Top-pics .movie-card:hover {
-    transform: scale(1.05);
-}
-
-.Top-pics .movie-info {
-    position: absolute;
-    bottom: 0;
-    left: -7px;
-    right: 50px;
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 5px;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.Top-pics .movie-card:hover .movie-info {
-    opacity: 1;
-}
-
-.Top-pics .movie-title {
-    font-size: 12px;
-    font-weight: bold;
-    display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.Top-pics .movie-meta {
-    display: flex;
-    justify-content: space-between;
-    font-size: 10px;
-}
-
-
 @keyframes scrollSlider {
   0% {
     transform: translateX(0);
@@ -439,7 +373,7 @@ h3 {
     transform: translateX(-50%);
   }
 }
-/* MOBILE RESPONSIVE STYLES */
+
 @media screen and (max-width: 768px) {
   .main-content {
     flex-direction: column;
@@ -469,13 +403,9 @@ h3 {
   padding: 15px 10px;
 }
 
-/* .banner .slider:hover {
-  animation-play-state: paused;
-} */
 .banner .slider:hover {
   animation-play-state: paused;
 }
-
 
   .banner .slider::-webkit-scrollbar {
     display: none;
@@ -504,6 +434,10 @@ h3 {
     margin-top: 20px;
     padding: 20px 10px;
     float: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
   }
 
   .fav-mov {
@@ -572,21 +506,5 @@ h3 {
   .detail-info {
     padding-left: 0;
     padding-top: 15px;
-  }
-
-  .Top-pics img {
-    width: 100%;
-    height: auto;
-  }
-
-  .Top-pics .movie-card {
-    width: 100%;
-  }
-
-  .Top-pics .movie-info {
-    font-size: 12px;
-    padding: 6px;
-    left: 0;
-    right: 0;
   }
 }

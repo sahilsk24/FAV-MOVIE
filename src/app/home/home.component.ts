@@ -58,5 +58,8 @@ export class HomeComponent implements OnInit {
     this.showMovieDetails = false;
     this.selectedMovie = null;
   }
+  goToSongs() {
+    alert("This feature is coming soon! Stay tuned for music content.");
+  }
 }
 
